@@ -8,8 +8,14 @@
 ::
 @ECHO off
 TITLE CSC 111 - CLion Installation
+:: select the Cygwin installer according to the architecture
+REG Query "HKLM\Hardware\Description\System\CentralProcessor\0"^
+    | find /i "x86" > NUL^
+    && set CYGWIN_EXE=setup-x86.exe || set CYGWIN_EXE=setup-x86_64.exe
 SET CYGWIN_ROOT=%SystemDrive%\cygwin
+SET CYGWIN_VERSION=v2.8.1
 SET CLION_URL=https://download-cf.jetbrains.com/cpp/CLion-2017.1.3.exe
+SET CLION_VERSION=v2017.1.3
 
 ECHO -----------------------------------------------------------
 ECHO                 University of Victoria
@@ -17,25 +23,11 @@ ECHO               Computer Science Department
 ECHO -----------------------------------------------------------
 ECHO  Hello there fellow student! this program will assist you
 ECHO  in the installation of:
-ECHO    1. Cygwin v2.8.1, released on June 23, 2016
-ECHO    2. JetBrains CLion v2017.1.3, released on June 7, 2017
-ECHO -----------------------------------------------------------
-:: run functions
-CALL :install_cygwin
-CALL :download "CLion v2017.1.3" %CLION_URL% files\CLion-2017.1.3.exe
-CALL :install_clion
-ECHO  The installation is now complete :)
-ECHO  You may now close this window and remove the files. Bye!
+ECHO    1. Cygwin %CYGWIN_VERSION%
+ECHO    2. JetBrains CLion %CLION_VERSION%
 ECHO -----------------------------------------------------------
 
-GOTO :EOF
-
-:: function definitions
-
-:: Executes the appropriate Cygwin installer
-:: Arguments: --
-:install_cygwin
-ECHO  + Installing Cygwin v2.8.1
+ECHO  + Installing Cygwin %CYGWIN_VERSION%
 ECHO      The following packages will be installed:
 ECHO          - wget
 ECHO          - gcc-g++
@@ -45,27 +37,29 @@ ECHO          - libmpfr-devel
 ECHO          - libgmp-devel
 ECHO          - libmpc-devel
 ECHO          - gdb
-:: select the installer according to the architecture
-REG Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL^
-    && set CYGWIN_EXE=setup-x86.exe || set CYGWIN_EXE=setup-x86_64.exe
-:: launch Cygwin installer in quiet mode selecting the required packages only.
-:: a Canadian mirror is used by default. Remove argument "site" if mirror is down
 files\%CYGWIN_EXE%^
-    --wait --no-desktop --no-shortcuts --no-startmenu --quiet-mode --root %CYGWIN_ROOT%^
-    --site http://muug.ca/mirror/cygwin^
-    -P wget -P gcc-g++ -P make -P diffutils -P libmpfr-devel -P libgmp-devel -P libmpc-devel -P gdb > NUL
+        --wait --no-desktop --no-shortcuts --no-startmenu^
+        --quiet-mode --root %CYGWIN_ROOT% --site http://muug.ca/mirror/cygwin^
+        -P wget -P gcc-g++ -P make -P diffutils -P libmpfr-devel -P libgmp-devel^
+        -P libmpc-devel -P gdb > NUL
+
+ECHO  + Downloading CLion %CLION_VERSION%
+CALL :download "CLion %CLION_VERSION%" %CLION_URL% files\CLion-%CLION_VERSION%.exe
+
+ECHO  + Installing %CLION_VERSION%
+files\CLion-%CLION_VERSION%.exe > NUL
+
+ECHO  The installation is now complete :)
+ECHO  You may now close this window and remove the files. Bye!
+ECHO -----------------------------------------------------------
+
 GOTO :EOF
 
-:: Executes the Clion installer
-:: Arguments: --
-:install_clion
-ECHO  + Installing v2017.1.3
-files\CLion-2017.1.3.exe > NUL
-GOTO :EOF
+:: function definitions
 
 :: Downloads a given URL using wget
-:: Arguments: file name, URL, output folder
+:: Arguments: file name, URL, output file
 :download
-ECHO  + Downloading %~1
-START "Downloading %~1 - DO NOT CLOSE THIS WINDOW" /WAIT %CYGWIN_ROOT%\bin\wget.exe -c -O "%3" "%2"
+START "Downloading %~1 - DO NOT CLOSE THIS WINDOW" /WAIT^
+    %CYGWIN_ROOT%\bin\wget.exe -c -O "%3" "%2"
 GOTO :EOF
