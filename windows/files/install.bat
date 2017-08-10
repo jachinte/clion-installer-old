@@ -15,9 +15,9 @@ REG Query "HKLM\Hardware\Description\System\CentralProcessor\0"^
     | FIND /i "x86" > NUL && (SET ARCH=x86&& SET ARCHNUM=32) || (SET ARCH=x86_64&& SET ARCHNUM=64)
 SET CYGWIN_VERSION=v2.8.1
 SET MINGW_VERSION=v7.1.0
-SET CLION_VERSION=v2017.1.3
+SET CLION_VERSION=v2017.2.1
 SET CLION_FILE=files\CLion-%CLION_VERSION%.exe
-SET CLION_URL=https://download-cf.jetbrains.com/cpp/CLion-2017.1.3.exe
+SET CLION_URL=https://download-cf.jetbrains.com/cpp/CLion-2017.2.1.exe
 
 IF "%~1"=="CYGWIN" (
     SET PROVIDER=Cygwin %CYGWIN_VERSION%
