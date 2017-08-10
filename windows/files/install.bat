@@ -60,11 +60,11 @@ GOTO :EOF
 :: Print a friendly footer
 :: Arguments: --
 :footer
-ECHO  
+ECHO  \t
 ECHO  The installation is now complete. The command line utilities
 ECHO  to compile and run C programs will be avaible after rebooting
 ECHO  your computer.
-ECHO  
+ECHO  \t
 ECHO  You may now close this window and remove the files. Bye!
 ECHO ---------------------------------------------------------------
 GOTO :EOF
@@ -84,7 +84,6 @@ IF "%~1"=="CYGWIN" (
         -P libmpc-devel -P gdb > NUL
 ) ELSE IF "%~1"=="MINGW" (
     ECHO  + Extracting %PROVIDER%. This may take several minutes
-    ECHO files\extra\7za-%ARCH%.exe x %PROVIDER_FILE% -y -o%SystemDrive%
     files\extra\7za-%ARCH%.exe x %PROVIDER_FILE% -y -o%SystemDrive%
     IF EXIST "%PROVIDER_ROOT%\" RD /q /s %PROVIDER_ROOT%
     MOVE %SystemDrive%\mingw%ARCHNUM% %PROVIDER_ROOT% > NUL
