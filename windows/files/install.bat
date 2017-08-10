@@ -87,7 +87,7 @@ IF "%~1"=="CYGWIN" (
     ECHO files\extra\7za-%ARCH%.exe x %PROVIDER_FILE% -y -o%SystemDrive%
     files\extra\7za-%ARCH%.exe x %PROVIDER_FILE% -y -o%SystemDrive%
     IF EXIST "%PROVIDER_ROOT%\" RD /q /s %PROVIDER_ROOT%
-    MOVE %SystemDrive%\mingw%ARCHNUM% %PROVIDER_ROOT%
+    MOVE %SystemDrive%\mingw%ARCHNUM% %PROVIDER_ROOT% > NUL
 )
 :: Add executables to the PATH
 ECHO  + Updating the PATH variable
