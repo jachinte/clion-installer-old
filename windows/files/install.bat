@@ -60,11 +60,11 @@ GOTO :EOF
 :: Print a friendly footer
 :: Arguments: --
 :footer
-ECHO
+ECHO  
 ECHO  The installation is now complete. The command line utilities
 ECHO  to compile and run C programs will be avaible after rebooting
 ECHO  your computer.
-ECHO
+ECHO  
 ECHO  You may now close this window and remove the files. Bye!
 ECHO ---------------------------------------------------------------
 GOTO :EOF
