@@ -60,9 +60,11 @@ GOTO :EOF
 :: Print a friendly footer
 :: Arguments: --
 :footer
+ECHO
 ECHO  The installation is now complete. The command line utilities
 ECHO  to compile and run C programs will be avaible after rebooting
 ECHO  your computer.
+ECHO
 ECHO  You may now close this window and remove the files. Bye!
 ECHO ---------------------------------------------------------------
 GOTO :EOF
@@ -89,7 +91,7 @@ IF "%~1"=="CYGWIN" (
 )
 :: Add executables to the PATH
 ECHO  + Updating the PATH variable
-CMD /c ""files\extra\pathmgr.bat" /add /y /all %PROVIDER_ROOT%\bin" > NUL
+CMD /c ""files\extra\pathmgr.bat" /add /y %PROVIDER_ROOT%\bin" > NUL
 GOTO :EOF
 
 :: Download and install CLion
