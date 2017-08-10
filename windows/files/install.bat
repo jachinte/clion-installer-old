@@ -41,9 +41,9 @@ CALL :install_clion
 CALL :footer
 GOTO :EOF
 
-:: function definitions
+:: procedure definitions
 
-:: Prints a friendly header
+:: Print a friendly header
 :: Arguments: --
 :header
 ECHO -----------------------------------------------------------
@@ -57,7 +57,7 @@ ECHO    2. JetBrains CLion %CLION_VERSION%
 ECHO -----------------------------------------------------------
 GOTO :EOF
 
-:: Prints a friendly footer
+:: Print a friendly footer
 :: Arguments: --
 :footer
 ECHO  The installation is now complete :)
@@ -86,7 +86,7 @@ IF "%~1"=="CYGWIN" (
 IF EXIST %PROVIDER_ROOT% SET PATH=%PATH%;%PROVIDER_ROOT%\bin
 GOTO :EOF
 
-:: Downloads and install CLion
+:: Download and install CLion
 :: Arguments: --
 :install_clion
 ECHO  + Downloading CLion %CLION_VERSION%
