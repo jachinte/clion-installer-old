@@ -8,103 +8,103 @@
 ::
 :: Arguments: GNU environment provider (CYGWIN, MINGW)
 ::
-@ECHO off
-TITLE CSC 111 - CLion Installation
+@echo off
+title CSC 111 - CLion Installation
 :: select the Cygwin installer according to the architecture
-REG Query "HKLM\Hardware\Description\System\CentralProcessor\0"^
-    | FIND /i "x86" > NUL && (SET ARCH=x86&& SET ARCHNUM=32) || (SET ARCH=x86_64&& SET ARCHNUM=64)
-SET CYGWIN_VERSION=v2.8.1
-SET MINGW_VERSION=v7.1.0
-SET CLION_VERSION=v2017.2.1
-SET CLION_FILE=files\CLion-%CLION_VERSION%.exe
-SET CLION_URL=https://download-cf.jetbrains.com/cpp/CLion-2017.2.1.exe
+reg Query "HKLM\Hardware\Description\System\CentralProcessor\0"^
+    | find /i "x86" > NUL && (set ARCH=x86&& set ARCHNUM=32) || (set ARCH=x86_64&& set ARCHNUM=64)
+set CYGWIN_VERSION=v2.8.1
+set MINGW_VERSION=v7.1.0
+set CLION_VERSION=v2017.2.1
+set CLION_FILE=files\CLion-%CLION_VERSION%.exe
+set CLION_URL=https://download-cf.jetbrains.com/cpp/CLion-2017.2.1.exe
 
-IF "%~1"=="CYGWIN" (
-    SET PROVIDER=Cygwin %CYGWIN_VERSION%
-    SET PROVIDER_ROOT=%SystemDrive%\cygwin
-    SET PROVIDER_FILE=files\cygwin.exe
-    SET PROVIDER_URL=https://cygwin.com/setup-%ARCH%.exe
-) ELSE IF "%~1"=="MINGW" (
-    SET PROVIDER=MinGW %MINGW_VERSION%
-    SET PROVIDER_ROOT=%SystemDrive%\MinGW
-    SET PROVIDER_FILE=files\mingw.7z
-    IF %ARCH%==x86 (
-        SET PROVIDER_URL="https://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win32/Personal Builds/mingw-builds/7.1.0/threads-posix/dwarf/i686-7.1.0-release-posix-dwarf-rt_v5-rev1.7z/download"
-    ) ELSE (
-        SET PROVIDER_URL="https://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win64/Personal Builds/mingw-builds/7.1.0/threads-posix/seh/x86_64-7.1.0-release-posix-seh-rt_v5-rev1.7z/download"
+if "%~1"=="CYGWIN" (
+    set PROVIDER=Cygwin %CYGWIN_VERSION%
+    set PROVIDER_ROOT=%SystemDrive%\cygwin
+    set PROVIDER_FILE=files\cygwin.exe
+    set PROVIDER_URL=https://cygwin.com/setup-%ARCH%.exe
+) else if "%~1"=="MINGW" (
+    set PROVIDER=MinGW %MINGW_VERSION%
+    set PROVIDER_ROOT=%SystemDrive%\MinGW
+    set PROVIDER_FILE=files\mingw.7z
+    if %ARCH%==x86 (
+        set PROVIDER_URL="https://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win32/Personal Builds/mingw-builds/7.1.0/threads-posix/dwarf/i686-7.1.0-release-posix-dwarf-rt_v5-rev1.7z/download"
+    ) else (
+        set PROVIDER_URL="https://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win64/Personal Builds/mingw-builds/7.1.0/threads-posix/seh/x86_64-7.1.0-release-posix-seh-rt_v5-rev1.7z/download"
     )
 )
 
-CALL :header
-CALL :install_environment %~1
-CALL :install_clion
-CALL :footer
-GOTO :EOF
+call :header
+call :install_environment %~1
+call :install_clion
+call :footer
+goto :EOF
 
 :: procedure definitions
 
 :: Print a friendly header
 :: Arguments: --
 :header
-ECHO ---------------------------------------------------------------
-ECHO                   University of Victoria
-ECHO                 Computer Science Department
-ECHO ---------------------------------------------------------------
-ECHO  Hello there fellow student! this program will assist you
-ECHO  in the installation of:
-ECHO    1. %PROVIDER%
-ECHO    2. JetBrains CLion %CLION_VERSION%
-ECHO ---------------------------------------------------------------
-GOTO :EOF
+echo ---------------------------------------------------------------
+echo                   University of Victoria
+echo                 Computer Science Department
+echo ---------------------------------------------------------------
+echo  Hello there fellow student! this program will assist you
+echo  in the installation of:
+echo    1. %PROVIDER%
+echo    2. JetBrains CLion %CLION_VERSION%
+echo ---------------------------------------------------------------
+goto :EOF
 
 :: Print a friendly footer
 :: Arguments: --
 :footer
-ECHO. 
-ECHO  The installation is now complete. The command line utilities
-ECHO  to compile and run C programs will be avaible after rebooting
-ECHO  your computer.
-ECHO. 
-ECHO  You may now close this window and remove the files. Bye!
-ECHO ---------------------------------------------------------------
-GOTO :EOF
+echo. 
+echo  The installation is now complete. The command line utilities
+echo  to compile and run C programs will be avaible after rebooting
+echo  your computer.
+echo. 
+echo  You may now close this window and remove the files. Bye!
+echo ---------------------------------------------------------------
+goto :EOF
 
 :: Install the GNU environment to compile and
 :: run C programs
 :: Arguments: the selected environment (CYGWIN, MINGW)
 :install_environment
-ECHO  + Downloading %PROVIDER%
-CALL :download "%PROVIDER%" %PROVIDER_URL% "%PROVIDER_FILE%"
-IF "%~1"=="CYGWIN" (
-    ECHO  + Installing %PROVIDER%
+echo  + Downloading %PROVIDER%
+call :download "%PROVIDER%" %PROVIDER_URL% "%PROVIDER_FILE%"
+if "%~1"=="CYGWIN" (
+    echo  + Installing %PROVIDER%
     %PROVIDER_FILE% ^
         --wait --no-desktop --no-shortcuts --no-startmenu ^
         --quiet-mode --root %PROVIDER_ROOT% --site http://muug.ca/mirror/cygwin ^
         -P wget -P gcc-g++ -P make -P diffutils -P libmpfr-devel -P libgmp-devel ^
         -P libmpc-devel -P gdb > NUL
-) ELSE IF "%~1"=="MINGW" (
-    ECHO  + Extracting %PROVIDER%. This may take several minutes
+) else if "%~1"=="MINGW" (
+    echo  + Extracting %PROVIDER%. This may take several minutes
     files\extra\7za-%ARCH%.exe x %PROVIDER_FILE% -y -o%SystemDrive%
-    IF EXIST "%PROVIDER_ROOT%\" RD /q /s %PROVIDER_ROOT%
-    MOVE %SystemDrive%\mingw%ARCHNUM% %PROVIDER_ROOT% > NUL
+    if exist "%PROVIDER_ROOT%\" rd /q /s %PROVIDER_ROOT%
+    move %SystemDrive%\mingw%ARCHNUM% %PROVIDER_ROOT% > NUL
 )
 :: Add executables to the PATH
-ECHO  + Updating the PATH variable
-CMD /c ""files\extra\pathmgr.bat" /add /y %PROVIDER_ROOT%\bin" > NUL
-GOTO :EOF
+echo  + Updating the PATH variable
+cmd /c ""files\extra\pathmgr.bat" /add /y %PROVIDER_ROOT%\bin" > NUL
+goto :EOF
 
 :: Download and install CLion
 :: Arguments: --
 :install_clion
-ECHO  + Downloading CLion %CLION_VERSION%
-CALL :download "CLion %CLION_VERSION%" "%CLION_URL%" "%CLION_FILE%"
-ECHO  + Installing %CLION_VERSION%
+echo  + Downloading CLion %CLION_VERSION%
+call :download "CLion %CLION_VERSION%" "%CLION_URL%" "%CLION_FILE%"
+echo  + Installing %CLION_VERSION%
 %CLION_FILE% > NUL
-GOTO :EOF
+goto :EOF
 
 :: Downloads a given URL using wget
 :: Arguments: file name, URL, output file
 :download
-START "Downloading %~1 - DO NOT CLOSE THIS WINDOW" /WAIT^
+start "Downloading %~1 - DO NOT CLOSE THIS WINDOW" /WAIT^
     files\extra\curl.exe -k -L -C - %2 -o %3
-GOTO :EOF
+goto :EOF
