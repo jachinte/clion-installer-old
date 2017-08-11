@@ -27,8 +27,8 @@ xcode-select --install &> NULL
 gcc --version &> NULL || (echo $GCC_ERROR_MSG; exit 1)
 
 # Download and install CLion for mac
-curl -C - https://download-cf.jetbrains.com/cpp/CLion-2017.2.1.dmg -o CLion-2017.2.1.dmg
-hdiutil attach CLion-2017.2.1.dmg &> /dev/null
+curl -C - https://download-cf.jetbrains.com/cpp/CLion-2017.2.1.dmg -o $CLION_FILE
+hdiutil attach $CLION_FILE &> /dev/null
 ditto /Volumes/CLion/CLion.app /Applications/CLion.app &> /dev/null
 hdiutil detach /Volumes/CLion/ &> /dev/null
 
