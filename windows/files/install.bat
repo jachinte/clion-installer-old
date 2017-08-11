@@ -6,7 +6,7 @@ rem This program installs CLion, and either Cygwin or MinGW.
 rem Its main purpose is to facilitate the configuration of the
 rem GNU environment required to compile and run C programs.
 rem 
-rem Arguments: GNU environment provider (CYGWIN, MINGW)
+rem arguments: GNU environment provider (CYGWIN, MINGW)
 rem 
 @echo off
 title CSC 111 - CLion Installation
@@ -44,7 +44,7 @@ goto :EOF
 rem procedure definitions
 
 rem Print a friendly header
-rem Arguments: --
+rem arguments: --
 :header
 echo ---------------------------------------------------------------
 echo                   University of Victoria
@@ -58,7 +58,7 @@ echo ---------------------------------------------------------------
 goto :EOF
 
 rem Print a friendly footer
-rem Arguments: --
+rem arguments: --
 :footer
 echo. 
 echo  The installation is now complete. The command line utilities
@@ -71,7 +71,7 @@ goto :EOF
 
 rem Install the GNU environment to compile and
 rem run C programs
-rem Arguments: the selected environment (CYGWIN, MINGW)
+rem arguments: the selected environment (CYGWIN, MINGW)
 :install_environment
 echo  + Downloading %PROVIDER%
 call :download "%PROVIDER%" %PROVIDER_URL% "%PROVIDER_FILE%"
@@ -88,13 +88,13 @@ if "%~1"=="CYGWIN" (
     if exist "%PROVIDER_ROOT%\" rd /q /s %PROVIDER_ROOT%
     move %SystemDrive%\mingw%ARCHNUM% %PROVIDER_ROOT% > NUL
 )
-rem Add executables to the PATH
+rem add executables to the PATH
 echo  + Updating the PATH variable
 cmd /c ""files\extra\pathmgr.bat" /add /y %PROVIDER_ROOT%\bin" > NUL
 goto :EOF
 
 rem Download and install CLion
-rem Arguments: --
+rem arguments: --
 :install_clion
 echo  + Downloading CLion %CLION_VERSION%
 call :download "CLion %CLION_VERSION%" "%CLION_URL%" "%CLION_FILE%"
@@ -103,7 +103,7 @@ echo  + Installing %CLION_VERSION%
 goto :EOF
 
 rem Downloads a given URL using wget
-rem Arguments: file name, URL, output file
+rem arguments: file name, URL, output file
 :download
 start "Downloading %~1 - DO NOT CLOSE THIS WINDOW" /WAIT^
     files\extra\curl.exe -k -L -C - %2 -o %3
