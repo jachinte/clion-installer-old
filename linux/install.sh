@@ -17,16 +17,19 @@ echo                   University of Victoria
 echo                 Computer Science Department
 echo ---------------------------------------------------------------
 echo  Hello there fellow student! this program will assist you
-echo  in the installation of:
-echo    1. XCode command line tools
-echo    2. JetBrains CLion v$CLION_VERSION
+echo  in the installation of JetBrains CLion v$CLION_VERSION
 echo ---------------------------------------------------------------
 
 # Download and install CLion for linux
+echo + Downloading the CLion installer
+echo 
 wget -c -O $CLION_FILE $CLION_URL
-sudo tar xf $CLION_FILE -C /opt/
+
+echo + Extracting files
+sudo tar xf $CLION_FILE -C /opt/ &> /dev/null
 
 # Add alias to open the IDE
+echo + Creating alias
 alias clion && echo " $ALIAS_EXISTS_MSG" || \
 	echo "# The following alias was automatically created on $(date)" >> ~/.bash_aliases \
 	&& echo "alias clion='command'" >> ~/.bash_aliases \
