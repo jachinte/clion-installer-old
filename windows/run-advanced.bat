@@ -1,24 +1,24 @@
-:: run-advanced.bat
-:: Author: Miguel Jimenez
-:: Date  : August 9, 2017
-::
-:: This program selects and runs the adequate
-:: CLion+dependencies installer.
-::
-:: Arguments: --
-::
-@ECHO off
+rem run-advanced.bat
+rem Author: Miguel Jimenez
+rem Date  : August 9, 2017
+rem 
+rem This program selects and runs the adequate
+rem CLion+dependencies installer.
+rem 
+rem Arguments: --
+rem 
+@echo off
 
-:: Select installer and execute it
-SET /p choice= "Would you like to use (1) Cygwin or (2) MinGW? "
-IF %choice%==1 (
-	SET PROVIDER="CYGWIN"
-) ELSE IF %choice%==2 (
-	SET PROVIDER="MINGW"
-) ELSE (
-	ECHO The option you typed in is not valid.
-	ECHO This window will close in 5 seconds.
-	TIMEOUT /T 5 /NOBREAK
+rem Select installer and execute it
+set /p choice= "Would you like to use (1) Cygwin or (2) MinGW? "
+if %choice%==1 (
+	set PROVIDER="CYGWIN"
+) else if %choice%==2 (
+	set PROVIDER="MINGW"
+) else (
+	echo The option you typed in is not valid.
+	echo This window will close in 5 seconds.
+	timeout /T 5 /NOBREAK
 )
 
-CMD /k ""files\install.bat" %PROVIDER%"
+cmd /k ""files\install.bat" %PROVIDER%"
