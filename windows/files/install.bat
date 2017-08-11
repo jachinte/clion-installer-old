@@ -1,16 +1,16 @@
-:: install.bat
-:: Author: Miguel Jimenez
-:: Date  : July 10, 2017
-::
-:: This program installs CLion, and either Cygwin or MinGW.
-:: Its main purpose is to facilitate the configuration of the
-:: GNU environment required to compile and run C programs.
-::
-:: Arguments: GNU environment provider (CYGWIN, MINGW)
-::
+rem install.bat
+rem Author: Miguel Jimenez
+rem Date  : July 10, 2017
+rem 
+rem This program installs CLion, and either Cygwin or MinGW.
+rem Its main purpose is to facilitate the configuration of the
+rem GNU environment required to compile and run C programs.
+rem 
+rem Arguments: GNU environment provider (CYGWIN, MINGW)
+rem 
 @echo off
 title CSC 111 - CLion Installation
-:: select the Cygwin installer according to the architecture
+rem select the Cygwin installer according to the architecture
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0"^
     | find /i "x86" > NUL && (set ARCH=x86&& set ARCHNUM=32) || (set ARCH=x86_64&& set ARCHNUM=64)
 set CYGWIN_VERSION=v2.8.1
@@ -41,10 +41,10 @@ call :install_clion
 call :footer
 goto :EOF
 
-:: procedure definitions
+rem procedure definitions
 
-:: Print a friendly header
-:: Arguments: --
+rem Print a friendly header
+rem Arguments: --
 :header
 echo ---------------------------------------------------------------
 echo                   University of Victoria
@@ -57,8 +57,8 @@ echo    2. JetBrains CLion %CLION_VERSION%
 echo ---------------------------------------------------------------
 goto :EOF
 
-:: Print a friendly footer
-:: Arguments: --
+rem Print a friendly footer
+rem Arguments: --
 :footer
 echo. 
 echo  The installation is now complete. The command line utilities
@@ -69,9 +69,9 @@ echo  You may now close this window and remove the files. Bye!
 echo ---------------------------------------------------------------
 goto :EOF
 
-:: Install the GNU environment to compile and
-:: run C programs
-:: Arguments: the selected environment (CYGWIN, MINGW)
+rem Install the GNU environment to compile and
+rem run C programs
+rem Arguments: the selected environment (CYGWIN, MINGW)
 :install_environment
 echo  + Downloading %PROVIDER%
 call :download "%PROVIDER%" %PROVIDER_URL% "%PROVIDER_FILE%"
@@ -88,13 +88,13 @@ if "%~1"=="CYGWIN" (
     if exist "%PROVIDER_ROOT%\" rd /q /s %PROVIDER_ROOT%
     move %SystemDrive%\mingw%ARCHNUM% %PROVIDER_ROOT% > NUL
 )
-:: Add executables to the PATH
+rem Add executables to the PATH
 echo  + Updating the PATH variable
 cmd /c ""files\extra\pathmgr.bat" /add /y %PROVIDER_ROOT%\bin" > NUL
 goto :EOF
 
-:: Download and install CLion
-:: Arguments: --
+rem Download and install CLion
+rem Arguments: --
 :install_clion
 echo  + Downloading CLion %CLION_VERSION%
 call :download "CLion %CLION_VERSION%" "%CLION_URL%" "%CLION_FILE%"
@@ -102,8 +102,8 @@ echo  + Installing %CLION_VERSION%
 %CLION_FILE% > NUL
 goto :EOF
 
-:: Downloads a given URL using wget
-:: Arguments: file name, URL, output file
+rem Downloads a given URL using wget
+rem Arguments: file name, URL, output file
 :download
 start "Downloading %~1 - DO NOT CLOSE THIS WINDOW" /WAIT^
     files\extra\curl.exe -k -L -C - %2 -o %3
