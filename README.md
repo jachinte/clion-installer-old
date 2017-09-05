@@ -11,4 +11,4 @@ On Windows, CLion may be installed along with either Cygwin or MinGW. If you kno
 
 ### Mac and Linux
 
-Open a terminal window, then navigate to the corresponding folder (e.g., cd ~/Downloads/clion-installer/mac) and execute the command `sh install.sh`. On a Mac, the application is installed in `/Applications`. On a Linux, CLion is extracted in the `/opt` folder and an alias is added to the user's `.bash_aliases` file; to open the IDE, execute `clion` on a terminal.
+Open a terminal window, then navigate to the corresponding folder (e.g., cd ~/Downloads/clion-installer/mac) and execute the command `bash install.sh`. On a Mac, the application is installed in `/Applications`. On a Linux, CLion is extracted in the `/opt` folder and an alias is added to the user's `.bash_aliases` file; to open the IDE, execute `clion` on a terminal.
