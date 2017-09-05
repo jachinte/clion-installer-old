@@ -3,7 +3,7 @@ Scripts to facilitate CLion installation on Windows, Mac and Linux.
 
 ## Instructions
 
-First of all, download these files from here: https://github.com/jachinte/clion-installer/archive/master.zip
+First of all, download these files from here: https://github.com/jachinte/clion-installer/archive/master.zip and then extract them.
 
 ### Windows
 
