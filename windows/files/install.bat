@@ -1,3 +1,4 @@
+@echo off
 rem install.bat
 rem Author: Miguel Jimenez
 rem Date  : July 10, 2017
@@ -8,7 +9,6 @@ rem GNU environment required to compile and run C programs.
 rem 
 rem arguments: GNU environment provider (CYGWIN, MINGW)
 rem 
-@echo off
 title CSC 111 - CLion Installation
 rem select the Cygwin installer according to the architecture
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0"^

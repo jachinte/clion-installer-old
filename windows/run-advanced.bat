@@ -1,3 +1,4 @@
+@echo off
 rem run-advanced.bat
 rem Author: Miguel Jimenez
 rem Date  : August 9, 2017
@@ -7,8 +8,6 @@ rem CLion+dependencies installer.
 rem 
 rem Arguments: --
 rem 
-@echo off
-
 rem Select installer and execute it
 set /p choice= "Would you like to use (1) Cygwin or (2) MinGW? "
 if %choice%==1 (
