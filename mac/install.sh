@@ -23,8 +23,8 @@ echo    2. JetBrains CLion v$CLION_VERSION
 echo ---------------------------------------------------------------
 
 # Install GCC and verify executable
-xcode-select --install &> NULL
-gcc --version &> NULL || (echo $GCC_ERROR_MSG; exit 1)
+xcode-select --install &> /dev/null
+gcc --version &> /dev/null || (echo $GCC_ERROR_MSG; exit 1)
 
 # Download and install CLion for mac
 curl -C - $CLION_URL -o $CLION_FILE
